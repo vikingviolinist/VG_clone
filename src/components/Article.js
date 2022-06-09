@@ -3,18 +3,16 @@ import { useState } from 'react';
 import Title from './Title';
 
 const Article = ({ column }) => {
-  const { imageUrl, url, title, width } = column;
+  const { imageUrl, url, title, width: flex } = column;
   const [isEditable, setIsEditable] = useState(false);
 
   const toggleEditing = () => setIsEditable(!isEditable);
 
-  const togglePropagation = (e) => {
-    if (isEditable) e.preventDefault();
-  };
+  const checkEditing = (e) => isEditable && e.preventDefault();
 
   return (
-    <div className="article-container" style={{ flex: width }}>
-      <a className="article-link" href={url} target="_blank" rel="noreferrer" onClick={togglePropagation}>
+    <div className="article-container" style={{ flex }}>
+      <a className="article-link" href={url} target="_blank" rel="noreferrer" onClick={checkEditing}>
         <img className="article-img" src={imageUrl} alt={title} />
         <Title title={title} isEditable={isEditable} />
       </a>
